@@ -21,12 +21,12 @@ servers = [{
 
 @tasks.loop(minutes=3)
 async def RealTimeOnline():
-    channel_client = client.get_channel(1088121719845294171)
+    channel_client = client.get_channel(1090691667230724238)
     online = get_players_count('79.143.20.74:26065')
     new_name = f"Public #14 Online: {online}"
     await channel_client.edit(name=new_name)
 
-    channel_client = client.get_channel(1088128177836134461)
+    channel_client = client.get_channel(1090691019839914054)
     online = get_players_count('79.143.20.74:26215')
     new_name = f"Public #8 Online: {online}"
     await channel_client.edit(name=new_name)
