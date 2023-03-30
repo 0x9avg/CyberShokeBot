@@ -6,7 +6,8 @@ import os
 
 client = commands.Bot(command_prefix='/')
 client.remove_command('help')
-
+online_channel14 = int(os.environ.get('ONLINE_CHANNEL14'))
+online_channel8 = int(os.environ.get('ONLINE_CHANNEL8'))
 token = os.environ.get('BOT_TOKEN')
 bot_version = os.environ.get('BOT_VERSION')
 
@@ -21,13 +22,13 @@ servers = [{
 
 @tasks.loop(minutes=3)
 async def RealTimeOnline():
-    channel_client = client.get_channel(1090691667230724238)
-    online = get_players_count('79.143.20.74:26065')
+    channel_client = client.get_channel(online_channel14)
+    online = get_players_count('79.143.20.74:26065') - 1
     new_name = f"Public #14 Online: {online}"
     await channel_client.edit(name=new_name)
 
-    channel_client = client.get_channel(1090691019839914054)
-    online = get_players_count('79.143.20.74:26215')
+    channel_client = client.get_channel(online_channel8)
+    online = get_players_count('79.143.20.74:26215') - 1
     new_name = f"Public #8 Online: {online}"
     await channel_client.edit(name=new_name)
 
