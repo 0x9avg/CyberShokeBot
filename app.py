@@ -6,8 +6,10 @@ import os
 
 client = commands.Bot(command_prefix='/')
 client.remove_command('help')
+
 online_channel14 = int(os.environ.get('ONLINE_CHANNEL14'))
 online_channel8 = int(os.environ.get('ONLINE_CHANNEL8'))
+
 token = os.environ.get('BOT_TOKEN')
 bot_version = os.environ.get('BOT_VERSION')
 
