@@ -225,6 +225,7 @@ async def info(interaction: discord.Interaction):
         title='Информация о 30avgBot',
         color=discord.Colour.red(),
         description=f'Version: {bot_version}\nDeveloper: 9 avg#5879')
+    await interaction.response.send_message(embed=embed)
 
 
 client.run(token=token)
