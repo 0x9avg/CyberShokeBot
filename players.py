@@ -24,4 +24,4 @@ def get_players_count(address):
         return (players['player_count'])
 
 
-# print(get_players(SERVER_ADDRESS))
+# print(get_players_count(SERVER_ADDRESS))
