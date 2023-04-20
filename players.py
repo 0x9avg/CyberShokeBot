@@ -14,7 +14,10 @@ def get_info(address):
                 continue
             players_online[player['name']] = player['score']
         players_count = players['player_count']
-    return ((players_online, players_count - 1))
+    print(players_online)
+    return (dict(
+        sorted(players_online.items(), key=lambda item: item[1],
+               reverse=True)), players_count - 1)
 
 
 def get_players_count(address):
