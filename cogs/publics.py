@@ -45,7 +45,7 @@ class Publics(commands.Cog):
                             inline=False)
             embeds.append(embed)
 
-        view = PaginationView(embeds)
+        view = PaginationView(embeds, author=interaction.user.id)
         await interaction.response.send_message(embed=view.initial, view=view)
 
 

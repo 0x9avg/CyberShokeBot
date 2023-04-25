@@ -5,7 +5,7 @@ from collections import deque
 
 class PaginationView(discord.ui.View):
 
-    def __init__(self, embeds: List[discord.Embed]) -> None:
+    def __init__(self, embeds: List[discord.Embed], author: None) -> None:
         super().__init__(timeout=30)
 
         self._embeds = embeds
@@ -14,6 +14,7 @@ class PaginationView(discord.ui.View):
         self._len = len(embeds)
         self._current_page = 1
         self.children[0].disabled = True
+        self._author = author
 
     async def update_buttons(self, interaction: discord.Interaction) -> None:
         self._queue[0].set_footer(
@@ -32,19 +33,29 @@ class PaginationView(discord.ui.View):
 
     @discord.ui.button(emoji='⬅️')
     async def previouts(self, interaction: discord.Interaction, _):
-        self._queue.rotate(-1)
-        embed = self._queue[0]
-        self._current_page -= 1
-        await interaction.response.edit_message(embed=embed)
-        await self.update_buttons(interaction)
+        if interaction.user.id == self._author:
+            self._queue.rotate(-1)
+            embed = self._queue[0]
+            self._current_page -= 1
+            await interaction.response.edit_message(embed=embed)
+            await self.update_buttons(interaction)
+        else:
+            await interaction.response.send_message(
+                'У вас нет прав на изменения данной страницы. Используйте /publics повторно',
+                ephemeral=True)
 
     @discord.ui.button(emoji='➡️')
     async def next(self, interaction: discord.Interaction, _):
-        self._queue.rotate(1)
-        embed = self._queue[0]
-        self._current_page += 1
-        await interaction.response.edit_message(embed=embed)
-        await self.update_buttons(interaction)
+        if interaction.user.id == self._author:
+            self._queue.rotate(1)
+            embed = self._queue[0]
+            self._current_page += 1
+            await interaction.response.edit_message(embed=embed)
+            await self.update_buttons(interaction)
+        else:
+            await interaction.response.send_message(
+                'У вас нет прав на изменения данной страницы. Используйте /publics повторно',
+                ephemeral=True)
 
     @property
     def initial(self) -> discord.Embed:

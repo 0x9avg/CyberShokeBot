@@ -1,6 +1,7 @@
 import settings
 import discord
 from discord.ext import commands
+from discord import app_commands
 import os
 
 guild_id = int(os.environ.get('GUILD_ID'))
@@ -20,6 +21,7 @@ class Bot(commands.Bot):
 
     async def on_ready(self):
         await self.wait_until_ready()
+
         if not self.synced:
             for filename in os.listdir('./cogs'):
                 if filename.endswith('.py'):
@@ -32,6 +34,7 @@ class Bot(commands.Bot):
                     #     user = bot.get_user(566652404838170625)
                     #     await user.send(ex)
             await bot.tree.sync()
+
             self.synced = True
         logger.info(f'Bot has logged in as {self.user}.')
 

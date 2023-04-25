@@ -57,6 +57,7 @@ class Help(commands.Cog):
             description=
             'Вы можете получить детальную справку по каждой команде, выполнив её с указанием названия команды или указав категорию команд. Например: `/info ?` или `/help info`'
         )
+        embed.set_thumbnail(url=interaction.user.avatar.url)
 
         if command and command in commands.keys():
             embed = discord.Embed(title=f'Команда {command}',
