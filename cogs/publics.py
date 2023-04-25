@@ -2,10 +2,8 @@ import discord
 from discord import app_commands
 from table2ascii import table2ascii as t2a, PresetStyle
 from discord.ext import commands
-import os
-from utils.players import *
-
-guild_id = int(os.environ.get('GUILD_ID'))
+from utils.players import get_info
+from utils.paginator import PaginationView
 
 servers = [{
     'name': 'Public #8',
@@ -46,6 +44,35 @@ class Publics(commands.Cog):
                             value=f"```\n{output}\n```",
                             inline=False)
             await interaction.followup.send(embed=embed)
+
+    @app_commands.command(name='servers',
+                          description='Shows online on the servers')
+    async def servers(self, interaction: discord.Interaction):
+        embeds = []
+
+        for server in servers:
+            embed = discord.Embed(title='Server list')
+            server_name = server['name']
+            server_ip = server['ip']
+            server_info = get_info(server_ip)
+            body = []
+            if server_info[1] == 0:
+                embeds.append('Empty')
+                continue
+            for index, (key, value) in enumerate(server_info[0].items(),
+                                                 start=1):
+                body.append([index, key, value])
+
+            output = t2a(header=["Number", "Nick", "Score"],
+                         body=body,
+                         style=PresetStyle.thin_compact)
+            embed.add_field(name=f'{server_name} Online: {server_info[1]}',
+                            value=f"```\n{output}\n```",
+                            inline=False)
+            embeds.append(embed)
+
+        view = PaginationView(embeds)
+        await interaction.response.send_message(embed=view.initial, view=view)
 
 
 async def setup(bot: commands.Bot) -> None:

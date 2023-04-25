@@ -3,9 +3,6 @@ from discord.ui import Select, View
 from discord import app_commands
 from discord.ext import commands
 from discord.app_commands import Choice
-import os
-
-guild_id = int(os.environ.get('GUILD_ID'))
 
 
 class Help(commands.Cog):

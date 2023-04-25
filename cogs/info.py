@@ -3,7 +3,6 @@ from discord import app_commands
 from discord.ext import commands
 import os
 
-guild_id = int(os.environ.get('GUILD_ID'))
 version = os.environ.get('BOT_VERSION')
 
 
