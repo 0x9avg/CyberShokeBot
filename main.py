@@ -1,3 +1,4 @@
+import settings
 import discord
 from discord.ext import commands
 import os
@@ -5,6 +6,8 @@ import os
 guild_id = int(os.environ.get('GUILD_ID'))
 token = os.environ.get('BOT_TOKEN')
 aplication_id = os.environ.get('CLIENT_ID')
+
+logger = settings.logging.getLogger("bot")
 
 
 class Bot(commands.Bot):
@@ -22,13 +25,16 @@ class Bot(commands.Bot):
                 if filename.endswith('.py'):
                     # try:
                     await self.load_extension(f'cogs.{filename[:-3]}')
+                    # print(f'Cog {filename[:-3]} loaded')
+                    logger.info(f'Cog {filename[:-3]} loaded')
+
                     # except Exception as ex:
                     #     user = bot.get_user(566652404838170625)
                     #     await user.send(ex)
-            await bot.tree.sync(guild=discord.Object(id=guild_id))
+            await bot.tree.sync()
             self.synced = True
-        print(f'We have logged in as {self.user}.')
+        logger.info(f'Bot has logged in as {self.user}.')
 
 
 bot = Bot()
-bot.run(token=token)
+bot.run(token=token, root_logger=True)

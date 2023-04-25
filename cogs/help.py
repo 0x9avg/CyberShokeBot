@@ -147,4 +147,4 @@ class Help(commands.Cog):
 
 
 async def setup(bot: commands.Bot) -> None:
-    await bot.add_cog(Help(bot), guilds=[discord.Object(id=guild_id)])
+    await bot.add_cog(Help(bot))
