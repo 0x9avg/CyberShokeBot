@@ -1,5 +1,6 @@
 from logging.config import dictConfig
 import logging
+import os
 
 LOGGING_CONFIG = {
     "version": 1,
@@ -45,5 +46,8 @@ LOGGING_CONFIG = {
         },
     },
 }
+
+if not os.path.exists('./logs'):
+    os.mkdir("logs")
 
 dictConfig(LOGGING_CONFIG)
