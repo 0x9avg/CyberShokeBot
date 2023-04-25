@@ -22,32 +22,6 @@ class Publics(commands.Cog):
     @app_commands.command(name='publics',
                           description='Shows online on the servers')
     async def publics(self, interaction: discord.Interaction):
-        await interaction.response.defer()
-        for server in servers:
-            embed = discord.Embed(title='Server list')
-            server_name = server['name']
-            server_ip = server['ip']
-            server_info = get_info(server_ip)
-            body = []
-            if server_info[1] == 0:
-                await interaction.followup.send(
-                    f'```Server {server_name} is empty```')
-                continue
-            for index, (key, value) in enumerate(server_info[0].items(),
-                                                 start=1):
-                body.append([index, key, value])
-
-            output = t2a(header=["Number", "Nick", "Score"],
-                         body=body,
-                         style=PresetStyle.thin_compact)
-            embed.add_field(name=f'{server_name} Online: {server_info[1]}',
-                            value=f"```\n{output}\n```",
-                            inline=False)
-            await interaction.followup.send(embed=embed)
-
-    @app_commands.command(name='servers',
-                          description='Shows online on the servers')
-    async def servers(self, interaction: discord.Interaction):
         embeds = []
 
         for server in servers:
