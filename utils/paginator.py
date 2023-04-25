@@ -6,7 +6,7 @@ from collections import deque
 class PaginationView(discord.ui.View):
 
     def __init__(self, embeds: List[discord.Embed], author: None) -> None:
-        super().__init__(timeout=30)
+        super().__init__(timeout=None)
 
         self._embeds = embeds
         self._queue = deque(embeds)
