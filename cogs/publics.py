@@ -30,20 +30,25 @@ class Publics(commands.Cog):
             server_ip = server['ip']
             server_info = get_info(server_ip)
             body = []
-            for index, (key, value) in enumerate(server_info[0].items(),
-                                                 start=1):
-                body.append([index, key, value])
+            if server_info[1] == 0:
+                output = f'Server empty'
+            else:
+                for index, (key, value) in enumerate(server_info[0].items(),
+                                                     start=1):
+                    body.append([index, key, value])
 
-            output = t2a(header=["#", "Nick", "Score"],
-                         body=body,
-                         style=PresetStyle.thick_compact)
+                output = t2a(header=["#", "Nick", "Score"],
+                             body=body,
+                             style=PresetStyle.thick_compact)
             embed.add_field(name=f'{server_name} Online: {server_info[1]}',
                             value=f"```\n{output}\n```",
                             inline=False)
             embeds.append(embed)
 
         view = PaginationView(embeds, author=interaction.user.id)
-        await interaction.response.send_message(embed=view.initial, view=view)
+        await interaction.response.send_message(embed=view.initial,
+                                                view=view,
+                                                ephemeral=True)
 
 
 async def setup(bot: commands.Bot) -> None:
