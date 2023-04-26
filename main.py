@@ -1,7 +1,6 @@
 import settings
 import discord
 from discord.ext import commands
-from discord import app_commands
 import os
 
 guild_id = int(os.environ.get('GUILD_ID'))
@@ -25,14 +24,8 @@ class Bot(commands.Bot):
         if not self.synced:
             for filename in os.listdir('./cogs'):
                 if filename.endswith('.py'):
-                    # try:
                     await self.load_extension(f'cogs.{filename[:-3]}')
-                    # print(f'Cog {filename[:-3]} loaded')
                     logger.info(f'Cog {filename[:-3]} loaded')
-
-                    # except Exception as ex:
-                    #     user = bot.get_user(566652404838170625)
-                    #     await user.send(ex)
             await bot.tree.sync()
 
             self.synced = True
