@@ -34,9 +34,9 @@ class Publics(commands.Cog):
                                                  start=1):
                 body.append([index, key, value])
 
-            output = t2a(header=["Number", "Nick", "Score"],
+            output = t2a(header=["#", "Nick", "Score"],
                          body=body,
-                         style=PresetStyle.thin_compact)
+                         style=PresetStyle.thick_compact)
             embed.add_field(name=f'{server_name} Online: {server_info[1]}',
                             value=f"```\n{output}\n```",
                             inline=False)
