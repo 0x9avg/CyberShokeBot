@@ -30,9 +30,6 @@ class Publics(commands.Cog):
             server_ip = server['ip']
             server_info = get_info(server_ip)
             body = []
-            if server_info[1] == 0:
-                embeds.append('Empty')
-                continue
             for index, (key, value) in enumerate(server_info[0].items(),
                                                  start=1):
                 body.append([index, key, value])
