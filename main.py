@@ -29,6 +29,8 @@ class Bot(commands.Bot):
             await bot.tree.sync()
 
             self.synced = True
+        await bot.change_presence(status=discord.Status.idle,
+                                  activity=discord.Game('/help | 9 avg#5879'))
         logger.info(f'Bot has logged in as {self.user}.')
 
 
